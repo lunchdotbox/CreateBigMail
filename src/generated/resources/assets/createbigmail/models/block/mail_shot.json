@@ -1,0 +1,9 @@
+{
+  "parent": "createbigmail:block/projectile_block",
+  "textures": {
+    "bottom": "createbigmail:block/projectile/mail_shot_bottom",
+    "particle": "createbigmail:block/projectile/mail_shot_top",
+    "side": "createbigmail:block/projectile/mail_shot",
+    "top": "createbigmail:block/projectile/mail_shot_top"
+  }
+}
