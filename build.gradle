@@ -27,6 +27,8 @@ sourceSets.main.resources {
 }
 
 repositories {
+    mavenCentral()
+
     maven { url = "https://maven.createmod.net" } // Create, Flywheel, Ponder
     maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
     maven { url = "https://maven.realrobotix.me/master" } // Registrate
@@ -174,6 +176,12 @@ dependencies {
     implementation "maven.modrinth:rpl:2.1.2"
     implementation("net.createmod.ponder:ponder-neoforge:${ponder_neoforge_version}+mc${minecraft_version}")
     implementation("com.tterrag.registrate:Registrate:${registrate_neoforge_version}")
+
+    implementation('dev.lukebemish:dynamicassetgenerator:6.1.2') {
+        capabilities {
+            requireCapability('dev.lukebemish:dynamicassetgenerator-neoforge')
+        }
+    }
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
