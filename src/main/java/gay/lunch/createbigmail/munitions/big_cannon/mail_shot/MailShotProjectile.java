@@ -2,18 +2,24 @@ package gay.lunch.createbigmail.munitions.big_cannon.mail_shot;
 
 import javax.annotation.Nonnull;
 
+import com.simibubi.create.content.logistics.box.PackageEntity;
 import gay.lunch.createbigmail.index.CBMBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 import rbasamoyai.createbigcannons.index.CBCMunitionPropertiesHandlers;
 import rbasamoyai.createbigcannons.munitions.big_cannon.AbstractBigCannonProjectile;
 import rbasamoyai.createbigcannons.munitions.big_cannon.config.BigCannonProjectilePropertiesComponent;
@@ -56,10 +62,41 @@ public class MailShotProjectile extends AbstractBigCannonProjectile {
         this.setPackage(ItemStack.parseOptional(this.level().registryAccess(), tag.getCompound("Package")));
     }
 
+    public boolean isPickable() {
+        return true;
+    }
+
+    public boolean skipAttackInteraction(Entity entity) {
+        if (entity instanceof Player player) {
+            return this.hurt(this.damageSources().playerAttack(player), 0.0F);
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public boolean hurt(DamageSource source, float damage) {
-        this.kill();
-        return super.hurt(source, damage);
+        if (this.isInvulnerableTo(source)) {
+            return false;
+        } else {
+            Level world = level();
+            if (!this.isRemoved() && !world.isClientSide) {
+                ItemStack box = this.getPackage();
+                if (!box.isEmpty()) {
+                    Vec3 pos = this.position();
+                    PackageEntity packageEntity = new PackageEntity(world, pos.x, pos.y, pos.z);
+                    packageEntity.setBox(box.copy());
+                    world.addFreshEntity(packageEntity);
+                }
+
+                this.playSound(SoundEvents.ITEM_FRAME_BREAK, 1.0f, 1.0f);
+
+                this.kill();
+                this.markHurt();
+            }
+
+            return true;
+        }
     }
 
     @Override

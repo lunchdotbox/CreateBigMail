@@ -2,6 +2,7 @@ package gay.lunch.createbigmail.index;
 
 import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
+import gay.lunch.createbigmail.CreateBigMail;
 import gay.lunch.createbigmail.munitions.big_cannon.mail_shot.MailShotProjectile;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -28,12 +29,11 @@ public class CBMEntityTypes     {
                 .properties(cannonProperties())
                 .renderer(() -> BigCannonProjectileRenderer::new)
                 .tag(RPLTags.PRECISE_MOTION)
-//                .onRegister(type -> MunitionPropertiesHandler.registerProjectileHandler(type, handler))
+                .onRegister(type -> MunitionPropertiesHandler.registerProjectileHandler(type, handler))
                 .register();
     }
 
-    public static void register() {
-    }
+    public static void register() {}
 
     private static <T> NonNullConsumer<T> configure(Consumer<EntityTypeConfigurator> cons) {
         return b -> cons.accept(EntityTypeConfigurator.of(b));
