@@ -96,11 +96,14 @@ Adds item carrying projectiles to Create Big Cannons.
     side="BOTH"
 
 [[dependencies.${mod_id}]]
-    modId="dynamicassetgenerator"
+    modId="dynamic_asset_generator"
     type="required"
     versionRange="6.1.2"
     ordering="AFTER"
     side="CLIENT"
+
+[[accessTransformers]]
+file="accesstransformer.cfg"
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
 # that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
