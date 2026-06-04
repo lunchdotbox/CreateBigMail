@@ -46,7 +46,7 @@ public class CBMBuilderTransformers {
         return b -> b.properties(p -> p.noOcclusion())
                 .addLayer(() -> RenderType::solid)
                 .blockstate((c, p) -> {
-                    BlockModelBuilder builder = p.models().withExistingParent(c.getName(), baseLoc)
+                    BlockModelBuilder builder = p.models().withExistingParent(c.getName(), baseLoc).renderType("minecraft:cutout")
                             .texture("side", sideLoc)
                             .texture("top", topLoc)
                             .texture("particle", topLoc);

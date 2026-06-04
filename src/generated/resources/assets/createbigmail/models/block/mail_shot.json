@@ -1,5 +1,6 @@
 {
   "parent": "createbigmail:block/projectile_block",
+  "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "createbigmail:block/projectile/mail_shot_bottom",
     "particle": "createbigmail:block/projectile/mail_shot_top",

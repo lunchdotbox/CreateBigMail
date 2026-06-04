@@ -3,9 +3,11 @@ package gay.lunch.createbigmail.munitions.big_cannon.mail_shot;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags.AllItemTags;
+import com.simibubi.create.Create;
 import com.simibubi.create.content.logistics.box.PackageItem;
 import com.simibubi.create.content.logistics.box.PackageStyles;
 import com.simibubi.create.content.logistics.box.PackageStyles.PackageStyle;
+import gay.lunch.createbigmail.CreateBigMail;
 import net.createmod.catnip.math.BlockFace;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.*;
@@ -17,7 +19,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import org.slf4j.Logger;
 
@@ -27,14 +32,18 @@ import java.util.stream.Stream;
 
 public class MailShotAssetFinder {
     private static final ModelBakery MODEL_BAKERY = Minecraft.getInstance().getModelManager().getModelBakery();
+    public static final Map<ResourceLocation, Map<Direction, PackageFace>> face_maps = new HashMap<>();
 
-    public record PackageFace (ResourceLocation texture, int start_x, int start_y, int size_x, int size_y) {
-        public PackageFace() {
-            this(MissingTextureAtlasSprite.getLocation(), 0, 0, 16, 16);
+    public static void init() {
+        for (PackageItem box : PackageStyles.ALL_BOXES) {
+            ResourceLocation item_id = BuiltInRegistries.ITEM.getKey(box);
+            face_maps.put(item_id, getMailShotFaces(item_id));
         }
+
+        CreateBigMail.LOGGER.info("faces are {}", face_maps);
     }
 
-    public static Map<Direction, PackageFace> getMailShotFaces(ResourceLocation path) {
+    private static Map<Direction, PackageFace> getMailShotFaces(ResourceLocation path) {
         UnbakedModel unbaked_model = MODEL_BAKERY.getModel(path.withPath("item/" + path.getPath()));
 
         Map<Direction, PackageFace> faces = new HashMap<>();
@@ -46,17 +55,28 @@ public class MailShotAssetFinder {
                 Material material = model.getMaterial(face.getValue().texture());
                 SpriteContents contents = material.sprite().contents();
                 ResourceLocation texture = material.texture();
+                texture = texture.withPath("textures/" + texture.getPath() + ".png");
                 BlockFaceUV uv = face.getValue().uv();
-                float size_u = Math.abs(uv.getU(1) - uv.getU(0));
-                float size_v = Math.abs(uv.getV(1) - uv.getV(0));
-                int start_x = (int) (uv.getU(0) * contents.width());
-                int start_y = (int) (uv.getV(0) * contents.height());
-                int size_x = (int) (size_u * contents.width());
-                int size_y = (int) (size_v * contents.height());
-                faces.put(face.getKey(), new PackageFace(texture, start_x, start_y, size_x, size_y));
+
+                float width = contents.width();
+                float height = contents.height();
+
+                float from_x = uv.getU(0) / 4.0f;
+                float from_y = uv.getV(0) / 4.0f;
+                float to_x = (uv.getU(2) / 4.0f);
+                float to_y = (uv.getV(2) / 4.0f);
+                if (Mth.abs(to_x - from_x) * width < 8 || Mth.abs(to_y - from_y) * height < 8) continue;
+
+                faces.put(face.getKey(), new PackageFace(texture, new Vec2[]{new Vec2(from_x, to_y), new Vec2(from_x, from_y), new Vec2(to_x, from_y), new Vec2(to_x, to_y)}));
             }
         }
 
         return faces;
+    }
+
+    public record PackageFace (ResourceLocation texture, Vec2[] uvs) {
+        public PackageFace() {
+            this(MissingTextureAtlasSprite.getLocation(), new Vec2[]{new Vec2(0, 4), new Vec2(0, 0), new Vec2(4, 0), new Vec2(4, 4)});
+        }
     }
 }
