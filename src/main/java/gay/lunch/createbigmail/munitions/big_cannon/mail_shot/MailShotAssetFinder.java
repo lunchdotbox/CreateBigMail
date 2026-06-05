@@ -61,11 +61,19 @@ public class MailShotAssetFinder {
                 float width = contents.width();
                 float height = contents.height();
 
-                float from_x = uv.getU(0) / 4.0f;
-                float from_y = uv.getV(0) / 4.0f;
-                float to_x = (uv.getU(2) / 4.0f);
-                float to_y = (uv.getV(2) / 4.0f);
+                float from_x = uv.getU(0) / 16.0f;
+                float from_y = uv.getV(0) / 16.0f;
+                float to_x = uv.getU(2) / 16.0f;
+                float to_y = uv.getV(2) / 16.0f;
                 if (Mth.abs(to_x - from_x) * width < 8 || Mth.abs(to_y - from_y) * height < 8) continue;
+                boolean r_x = from_x > to_x;
+                boolean r_y = from_y > to_y;
+                float move_x = ((Mth.abs(to_x * width - from_x * width) - 8) / width) / 2;
+                float move_y = ((Mth.abs(to_y * height - from_y * height) - 8) / height) / 2;
+                from_x += r_x ? -move_x : move_x;
+                from_y += r_y ? -move_y : move_y;
+                to_x -= r_x ? -move_x : move_x;
+                to_y -= r_y ? -move_y : move_y;
 
                 faces.put(face.getKey(), new PackageFace(texture, new Vec2[]{new Vec2(from_x, to_y), new Vec2(from_x, from_y), new Vec2(to_x, from_y), new Vec2(to_x, to_y)}));
             }

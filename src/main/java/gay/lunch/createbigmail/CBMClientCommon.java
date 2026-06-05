@@ -1,7 +1,6 @@
 package gay.lunch.createbigmail;
 
 import gay.lunch.createbigmail.munitions.big_cannon.mail_shot.MailShotAssetFinder;
-import gay.lunch.createbigmail.munitions.big_cannon.mail_shot.MailShotAssetGenerator;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;

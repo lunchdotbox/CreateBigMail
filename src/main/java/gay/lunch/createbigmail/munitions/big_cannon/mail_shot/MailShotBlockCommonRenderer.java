@@ -53,10 +53,10 @@ public class MailShotBlockCommonRenderer {
         Quaternionf rotation = direction.getRotation().normalize();
         Vec3i normal = direction.getNormal();
 
-        vertex(builder, lastPose, packedLight, rotation, normal, 0.251f, 0.251f, face.uvs()[3].x / 4, face.uvs()[3].y / 4);
-        vertex(builder, lastPose, packedLight, rotation, normal, 0.251f, -0.251f, face.uvs()[2].x / 4, face.uvs()[2].y / 4);
-        vertex(builder, lastPose, packedLight, rotation, normal, -0.251f, -0.251f, face.uvs()[1].x / 4, face.uvs()[1].y / 4);
-        vertex(builder, lastPose, packedLight, rotation, normal, -0.251f, 0.251f, face.uvs()[0].x / 4, face.uvs()[0].y / 4);
+        vertex(builder, lastPose, packedLight, rotation, normal, 0.251f, 0.251f, face.uvs()[3].x, face.uvs()[3].y);
+        vertex(builder, lastPose, packedLight, rotation, normal, 0.251f, -0.251f, face.uvs()[2].x, face.uvs()[2].y);
+        vertex(builder, lastPose, packedLight, rotation, normal, -0.251f, -0.251f, face.uvs()[1].x, face.uvs()[1].y);
+        vertex(builder, lastPose, packedLight, rotation, normal, -0.251f, 0.251f, face.uvs()[0].x, face.uvs()[0].y);
         posestack.popPose();
     }
 
