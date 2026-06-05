@@ -1,5 +1,6 @@
 package gay.lunch.createbigmail.munitions.big_cannon.mail_shot;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -32,7 +33,15 @@ public class MailShotBlockItem extends ProjectileBlockItem {
         super.appendHoverText(stack, ctx, tooltip, flag);
         ItemContainerContents items = stack.getOrDefault(CBMDataComponents.PACKAGE, ItemContainerContents.EMPTY);
         ItemStack box = items.copyOne();
-        if (!box.isEmpty())
+        if (!box.isEmpty()) {
             tooltip.add(Component.translatable("tooltip.createbigmail.package"));
+
+            List<Component> components = new ArrayList<>();
+            box.getItem().appendHoverText(box, ctx, components, flag);
+
+            for (Component component : components) {
+                tooltip.add(Component.literal("    ").append(component));
+            }
+        }
     }
 }

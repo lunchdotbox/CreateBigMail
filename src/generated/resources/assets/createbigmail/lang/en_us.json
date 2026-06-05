@@ -1,5 +1,6 @@
 {
   "block.createbigmail.mail_shot": "Mail Shot",
   "entity.createbigmail.mail_shot": "Mail Shot",
-  "itemGroup.createbigmail": "Create Big Mail"
+  "itemGroup.createbigmail": "Create Big Mail",
+  "tooltip.createbigmail.package": "+ Package"
 }
