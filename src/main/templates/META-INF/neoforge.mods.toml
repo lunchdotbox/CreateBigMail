@@ -95,13 +95,6 @@ Adds package carrying projectiles to Create Big Cannons.
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
-    modId="dynamic_asset_generator"
-    type="required"
-    versionRange="6.1.2"
-    ordering="AFTER"
-    side="CLIENT"
-
 [[accessTransformers]]
 file="accesstransformer.cfg"
 
