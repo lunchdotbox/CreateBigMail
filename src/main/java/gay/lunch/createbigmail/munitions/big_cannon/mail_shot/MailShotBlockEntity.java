@@ -1,6 +1,7 @@
 package gay.lunch.createbigmail.munitions.big_cannon.mail_shot;
 
 import com.simibubi.create.AllTags.AllItemTags;
+import com.simibubi.create.content.logistics.box.PackageEntity;
 import com.simibubi.create.foundation.utility.CreateLang;
 import gay.lunch.createbigmail.index.CBMDataComponents;
 import net.minecraft.core.BlockPos;
@@ -10,13 +11,16 @@ import net.minecraft.core.component.PatchedDataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import rbasamoyai.createbigcannons.index.CBCItems;
 import rbasamoyai.createbigcannons.munitions.big_cannon.BigCannonProjectileBlockEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MailShotBlockEntity extends BigCannonProjectileBlockEntity {
@@ -162,14 +166,24 @@ public class MailShotBlockEntity extends BigCannonProjectileBlockEntity {
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        if (!this.getPackage().isEmpty())
-            CreateLang.builder("tooltip")
-                    .translate("createbigmail.package")
-                    .forGoggles(tooltip);
-        if (!this.getTracer().isEmpty())
+        ItemStack tracer = this.getTracer();
+        if (!tracer.isEmpty())
             CreateLang.builder("tooltip")
                     .translate("createbigcannons.tracer")
                     .forGoggles(tooltip);
+
+        ItemStack box = this.getPackage();
+        if (!box.isEmpty()) {
+            CreateLang.builder("tooltip")
+                    .translate("createbigmail.package")
+                    .forGoggles(tooltip);
+
+            List<Component> subTooltip = new ArrayList<>();
+            box.getItem().appendHoverText(box, Item.TooltipContext.EMPTY, subTooltip, new TooltipFlag.Default(false, false));
+            subTooltip.replaceAll(sibling -> Component.literal("      ").append(sibling));
+            tooltip.addAll(subTooltip);
+        }
+
         return true;
     }
 }

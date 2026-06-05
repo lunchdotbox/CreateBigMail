@@ -36,12 +36,10 @@ public class MailShotBlockItem extends ProjectileBlockItem {
         if (!box.isEmpty()) {
             tooltip.add(Component.translatable("tooltip.createbigmail.package"));
 
-            List<Component> components = new ArrayList<>();
-            box.getItem().appendHoverText(box, ctx, components, flag);
-
-            for (Component component : components) {
-                tooltip.add(Component.literal("    ").append(component));
-            }
+            List<Component> subTooltip = new ArrayList<>();
+            box.getItem().appendHoverText(box, ctx, subTooltip, flag);
+            subTooltip.replaceAll(sibling -> Component.literal("  ").append(sibling));
+            tooltip.addAll(subTooltip);
         }
     }
 }
