@@ -1,8 +1,12 @@
 package gay.lunch.createbigmail.munitions.big_cannon.mail_shot;
 
 import javax.annotation.Nonnull;
+import javax.swing.*;
 
 import com.simibubi.create.content.logistics.box.PackageEntity;
+import com.simibubi.create.content.logistics.packagePort.postbox.PostboxBlock;
+import com.simibubi.create.content.logistics.packagePort.postbox.PostboxBlockEntity;
+import gay.lunch.createbigmail.CreateBigMail;
 import gay.lunch.createbigmail.index.CBMBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -10,17 +14,23 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import rbasamoyai.createbigcannons.config.CBCCfgMunitions;
 import rbasamoyai.createbigcannons.index.CBCMunitionPropertiesHandlers;
+import rbasamoyai.createbigcannons.munitions.ProjectileContext;
 import rbasamoyai.createbigcannons.munitions.big_cannon.AbstractBigCannonProjectile;
 import rbasamoyai.createbigcannons.munitions.big_cannon.config.BigCannonProjectilePropertiesComponent;
 import rbasamoyai.createbigcannons.munitions.big_cannon.config.InertBigCannonProjectileProperties;
@@ -66,6 +76,29 @@ public class MailShotProjectile extends AbstractBigCannonProjectile {
         return true;
     }
 
+    @Override
+    protected AABB makeBoundingBox() {
+        AABB box = super.makeBoundingBox();
+        return box.deflate(0.5);
+    }
+
+    @Override
+    protected ImpactResult calculateBlockPenetration(ProjectileContext projectileContext, BlockState state, BlockHitResult blockHitResult) {
+        if (state.getBlock() instanceof PostboxBlock block) {
+            PostboxBlockEntity be = block.getBlockEntity(level(), blockHitResult.getBlockPos());
+            if (be != null && be.acceptsPackages) {
+                CreateBigMail.LOGGER.info("destrrrrr");
+                ItemStack box = this.getPackage();
+                if (!box.isEmpty()) be.inventory.insertItem(0, box, false);
+                remove(RemovalReason.DISCARDED);
+                return new ImpactResult(ImpactResult.KinematicOutcome.STOP, false);
+            }
+        }
+
+        ImpactResult result = super.calculateBlockPenetration(new ProjectileContext(this, CBCCfgMunitions.GriefState.NO_DAMAGE), state, blockHitResult);
+        return new ImpactResult(result.kinematics() == ImpactResult.KinematicOutcome.PENETRATE ? ImpactResult.KinematicOutcome.STOP : result.kinematics(), false);
+    }
+
     public boolean skipAttackInteraction(Entity entity) {
         if (entity instanceof Player player) {
             return this.hurt(this.damageSources().playerAttack(player), 0.0F);
@@ -97,6 +130,26 @@ public class MailShotProjectile extends AbstractBigCannonProjectile {
 
             return true;
         }
+    }
+
+    @Override
+    public InteractionResult interact(Player pPlayer, InteractionHand pHand) {
+        if (!pPlayer.getItemInHand(pHand).isEmpty())
+            return super.interact(pPlayer, pHand);
+        if (pPlayer.level().isClientSide)
+            return InteractionResult.SUCCESS;
+
+        pPlayer.setItemInHand(pHand, this.getPackage());
+        this.playSound(SoundEvents.ITEM_FRAME_BREAK, 1.0f, 1.0f);
+
+        remove(RemovalReason.DISCARDED);
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        inGroundTime = 0;
     }
 
     @Override
