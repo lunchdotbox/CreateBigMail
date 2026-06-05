@@ -43,12 +43,14 @@ public class CBMBuilderTransformers {
         ResourceLocation sideLoc = CreateBigMail.resource("block/" + pathAndMaterial);
         ResourceLocation topLoc = CreateBigMail.resource("block/" + pathAndMaterial + "_top");
         ResourceLocation bottomLoc = CreateBigMail.resource("block/" + pathAndMaterial + "_bottom");
+        ResourceLocation insideLoc = CreateBigMail.resource("block/" + pathAndMaterial + "_inside");
         return b -> b.properties(p -> p.noOcclusion())
                 .addLayer(() -> RenderType::solid)
                 .blockstate((c, p) -> {
                     BlockModelBuilder builder = p.models().withExistingParent(c.getName(), baseLoc).renderType("minecraft:cutout")
                             .texture("side", sideLoc)
                             .texture("top", topLoc)
+                            .texture("inside", insideLoc)
                             .texture("particle", topLoc);
                     if (!useStandardModel) builder.texture("bottom", bottomLoc);
                     p.directionalBlock(c.get(), builder);

@@ -3,6 +3,7 @@
   "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "createbigmail:block/projectile/mail_shot_bottom",
+    "inside": "createbigmail:block/projectile/mail_shot_inside",
     "particle": "createbigmail:block/projectile/mail_shot_top",
     "side": "createbigmail:block/projectile/mail_shot",
     "top": "createbigmail:block/projectile/mail_shot_top"
