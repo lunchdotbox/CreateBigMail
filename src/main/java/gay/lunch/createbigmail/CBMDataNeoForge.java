@@ -1,5 +1,6 @@
 package gay.lunch.createbigmail;
 
+import gay.lunch.createbigmail.datagen.CBMCraftingRecipeProvider;
 import gay.lunch.createbigmail.datagen.assets.CBMLangGen;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -14,5 +15,6 @@ public class CBMDataNeoForge {
             return;
 
         CBMLangGen.prepare();
+        CBMCraftingRecipeProvider.register();
     }
 }
