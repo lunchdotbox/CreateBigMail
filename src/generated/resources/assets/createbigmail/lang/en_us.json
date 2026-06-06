@@ -1,6 +1,9 @@
 {
   "block.createbigmail.mail_shot": "Mail Shot",
+  "block.createbigmail.mail_shot.tooltip": "MAIL SHOT",
+  "block.createbigmail.mail_shot.tooltip.summary": "Can hold _Create Packages._ _Zero penetrating force._ _Cannot be fuzed and detonated._ Useful for _sending items long distances._",
   "entity.createbigmail.mail_shot": "Mail Shot",
   "itemGroup.createbigmail": "Create Big Mail",
+  "key.createbigmail.category": "Create Big Mail",
   "tooltip.createbigmail.package": "+ Package"
 }

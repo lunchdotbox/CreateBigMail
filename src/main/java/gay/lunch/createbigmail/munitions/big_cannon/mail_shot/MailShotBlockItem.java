@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import com.simibubi.create.content.equipment.zapper.terrainzapper.WorldshaperItemRenderer;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
+import gay.lunch.createbigmail.base.CBMTooltip;
 import gay.lunch.createbigmail.index.CBMDataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;

@@ -4,13 +4,21 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import gay.lunch.createbigmail.CreateBigMail;
+import gay.lunch.createbigmail.index.CBMBlocks;
 import net.minecraft.resources.ResourceLocation;
+import rbasamoyai.createbigcannons.base.CBCTooltip;
 
 import static gay.lunch.createbigmail.CreateBigMail.REGISTRATE;
 
 public class CBMLangGen {
     public static void prepare() {
+        tooltip(CBMBlocks.MAIL_SHOT)
+                .header("MAIL SHOT")
+                .summary("Can hold _Create Packages._ _Zero penetrating force._ _Cannot be fuzed and detonated._ Useful for _sending items long distances._");
+
         REGISTRATE.addLang("tooltip", CreateBigMail.resource("package"), "+ Package");
+
+        REGISTRATE.addLang("key", CreateBigMail.resource("category"), "Create Big Mail");
     }
 
     private static class TooltipBuilder {

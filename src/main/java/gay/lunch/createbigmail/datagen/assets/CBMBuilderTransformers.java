@@ -34,11 +34,11 @@ public class CBMBuilderTransformers {
                                         .include(CBMDataComponents.PACKAGE))))));
     }
 
-    public static <T extends Block, P> NonNullUnaryOperator<BlockBuilder<T, P>> projectile(String pathAndMaterial) {
-        return projectile(pathAndMaterial, false);
+    public static <T extends Block, P> NonNullUnaryOperator<BlockBuilder<T, P>> mailShotProjectile(String pathAndMaterial) {
+        return mailShotProjectile(pathAndMaterial, false);
     }
 
-    public static <T extends Block, P> NonNullUnaryOperator<BlockBuilder<T, P>> projectile(String pathAndMaterial, boolean useStandardModel) {
+    public static <T extends Block, P> NonNullUnaryOperator<BlockBuilder<T, P>> mailShotProjectile(String pathAndMaterial, boolean useStandardModel) {
         ResourceLocation baseLoc = CreateBigMail.resource(String.format("block/%sprojectile_block", useStandardModel ? "standard_" : ""));
         ResourceLocation sideLoc = CreateBigMail.resource("block/" + pathAndMaterial);
         ResourceLocation topLoc = CreateBigMail.resource("block/" + pathAndMaterial + "_top");

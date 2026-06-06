@@ -23,7 +23,7 @@ public class CBMBlocks {
             .properties(p -> p.strength(2.0f, 3.0f))
             .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
             .transform(axeOrPickaxe())
-            .transform(CBMBuilderTransformers.projectile("projectile/mail_shot"))
+            .transform(CBMBuilderTransformers.mailShotProjectile("projectile/mail_shot"))
             .loot(CBCBuilderTransformers.tracerProjectileLoot())
             .loot(CBMBuilderTransformers.packageProjectileLoot())
             .item(MailShotBlockItem::new)

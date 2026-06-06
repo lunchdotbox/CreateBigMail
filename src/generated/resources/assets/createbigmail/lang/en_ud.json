@@ -1,6 +1,9 @@
 {
   "block.createbigmail.mail_shot": "ʇoɥS ןıɐW",
+  "block.createbigmail.mail_shot.tooltip": "⟘OHS ꞀIⱯW",
+  "block.createbigmail.mail_shot.tooltip.summary": "‾˙sǝɔuɐʇsıp buoן sɯǝʇı buıpuǝs‾ ɹoɟ ןnɟǝs∩ ‾˙pǝʇɐuoʇǝp puɐ pǝznɟ ǝq ʇouuɐƆ‾ ‾˙ǝɔɹoɟ buıʇɐɹʇǝuǝd oɹǝZ‾ ‾˙sǝbɐʞɔɐԀ ǝʇɐǝɹƆ‾ pןoɥ uɐƆ",
   "entity.createbigmail.mail_shot": "ʇoɥS ןıɐW",
   "itemGroup.createbigmail": "ןıɐW bıᗺ ǝʇɐǝɹƆ",
+  "key.createbigmail.category": "ןıɐW bıᗺ ǝʇɐǝɹƆ",
   "tooltip.createbigmail.package": "ǝbɐʞɔɐԀ +"
 }
