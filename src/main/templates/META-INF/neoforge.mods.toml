@@ -41,6 +41,8 @@ displayName="${mod_name}" #mandatory
 # A text field displayed in the mod UI
 #credits="" #optional
 
+logoFile = "icon.png"
+
 # The authors of the mod, displayed in the mod UI (optional)
 authors="lunchdotbox"
 
