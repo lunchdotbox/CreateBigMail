@@ -8,6 +8,7 @@ import com.simibubi.create.content.logistics.packagePort.postbox.PostboxBlock;
 import com.simibubi.create.content.logistics.packagePort.postbox.PostboxBlockEntity;
 import gay.lunch.createbigmail.CreateBigMail;
 import gay.lunch.createbigmail.index.CBMBlocks;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -85,10 +86,27 @@ public class MailShotProjectile extends AbstractBigCannonProjectile {
     @Override
     protected ImpactResult calculateBlockPenetration(ProjectileContext projectileContext, BlockState state, BlockHitResult blockHitResult) {
         if (state.getBlock() instanceof PostboxBlock block) {
-            PostboxBlockEntity be = block.getBlockEntity(level(), blockHitResult.getBlockPos());
+            BlockPos blockPos = blockHitResult.getBlockPos();
+            PostboxBlockEntity be = block.getBlockEntity(level(), blockPos);
             if (be != null && be.acceptsPackages) {
                 ItemStack box = this.getPackage();
-                if (!box.isEmpty()) be.inventory.insertItem(0, box, false);
+                if (!box.isEmpty()) {
+                    for (int i = 0; i < be.inventory.getSlots(); i++)
+                        if (be.inventory.getItem(i).isEmpty()) {
+                            be.inventory.insertItem(i, box, false);
+
+                            remove(RemovalReason.DISCARDED);
+                            return new ImpactResult(ImpactResult.KinematicOutcome.STOP, false);
+                        }
+
+                    Level world = level();
+                    Vec3 pos = blockPos.getCenter();
+                    pos = pos.add(this.position().subtract(pos).normalize());
+                    PackageEntity packageEntity = new PackageEntity(world, pos.x, pos.y, pos.z);
+                    packageEntity.setBox(box.copy());
+                    world.addFreshEntity(packageEntity);
+                }
+
                 remove(RemovalReason.DISCARDED);
                 return new ImpactResult(ImpactResult.KinematicOutcome.STOP, false);
             }
