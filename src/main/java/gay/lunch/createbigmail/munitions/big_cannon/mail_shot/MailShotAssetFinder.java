@@ -39,8 +39,6 @@ public class MailShotAssetFinder {
             ResourceLocation item_id = BuiltInRegistries.ITEM.getKey(box);
             face_maps.put(item_id, getMailShotFaces(item_id));
         }
-
-        CreateBigMail.LOGGER.info("faces are {}", face_maps);
     }
 
     private static Map<Direction, PackageFace> getMailShotFaces(ResourceLocation path) {

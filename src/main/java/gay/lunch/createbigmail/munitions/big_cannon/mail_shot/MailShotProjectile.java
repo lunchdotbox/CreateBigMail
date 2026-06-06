@@ -87,7 +87,6 @@ public class MailShotProjectile extends AbstractBigCannonProjectile {
         if (state.getBlock() instanceof PostboxBlock block) {
             PostboxBlockEntity be = block.getBlockEntity(level(), blockHitResult.getBlockPos());
             if (be != null && be.acceptsPackages) {
-                CreateBigMail.LOGGER.info("destrrrrr");
                 ItemStack box = this.getPackage();
                 if (!box.isEmpty()) be.inventory.insertItem(0, box, false);
                 remove(RemovalReason.DISCARDED);
