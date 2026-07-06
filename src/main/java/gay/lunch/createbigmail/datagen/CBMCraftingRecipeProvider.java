@@ -1,7 +1,6 @@
 package gay.lunch.createbigmail.datagen;
 
 import com.simibubi.create.AllItems;
-import com.simibubi.create.AllTags;
 import com.simibubi.create.foundation.data.recipe.CommonMetal;
 import com.tterrag.registrate.providers.ProviderType;
 import gay.lunch.createbigmail.CreateBigMail;

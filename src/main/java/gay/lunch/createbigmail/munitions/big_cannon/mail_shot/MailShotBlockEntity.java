@@ -1,7 +1,6 @@
 package gay.lunch.createbigmail.munitions.big_cannon.mail_shot;
 
 import com.simibubi.create.AllTags.AllItemTags;
-import com.simibubi.create.content.logistics.box.PackageEntity;
 import com.simibubi.create.foundation.utility.CreateLang;
 import gay.lunch.createbigmail.index.CBMDataComponents;
 import net.minecraft.core.BlockPos;

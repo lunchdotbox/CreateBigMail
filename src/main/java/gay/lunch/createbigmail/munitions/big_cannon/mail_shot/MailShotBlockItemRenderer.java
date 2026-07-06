@@ -1,7 +1,6 @@
 package gay.lunch.createbigmail.munitions.big_cannon.mail_shot;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.item.render.CustomRenderedItemModel;
 import com.simibubi.create.foundation.item.render.CustomRenderedItemModelRenderer;
 import com.simibubi.create.foundation.item.render.PartialItemModelRenderer;
@@ -9,8 +8,6 @@ import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import gay.lunch.createbigmail.CreateBigMail;
 import gay.lunch.createbigmail.index.CBMBlocks;
 import gay.lunch.createbigmail.index.CBMDataComponents;
-import net.createmod.catnip.render.CachedBuffers;
-import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;

@@ -1,34 +1,19 @@
 package gay.lunch.createbigmail.munitions.big_cannon.mail_shot;
 
-import com.mojang.logging.LogUtils;
-import com.simibubi.create.AllItems;
-import com.simibubi.create.AllTags.AllItemTags;
-import com.simibubi.create.Create;
 import com.simibubi.create.content.logistics.box.PackageItem;
 import com.simibubi.create.content.logistics.box.PackageStyles;
-import com.simibubi.create.content.logistics.box.PackageStyles.PackageStyle;
-import gay.lunch.createbigmail.CreateBigMail;
-import net.createmod.catnip.math.BlockFace;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.*;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.SpriteContents;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.client.event.ModelEvent;
-import org.slf4j.Logger;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class MailShotAssetFinder {
     private static final ModelBakery MODEL_BAKERY = Minecraft.getInstance().getModelManager().getModelBakery();

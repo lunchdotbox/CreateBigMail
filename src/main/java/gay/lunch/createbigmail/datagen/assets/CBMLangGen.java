@@ -6,7 +6,6 @@ import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import gay.lunch.createbigmail.CreateBigMail;
 import gay.lunch.createbigmail.index.CBMBlocks;
 import net.minecraft.resources.ResourceLocation;
-import rbasamoyai.createbigcannons.base.CBCTooltip;
 
 import static gay.lunch.createbigmail.CreateBigMail.REGISTRATE;
 
