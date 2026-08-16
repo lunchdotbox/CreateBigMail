@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "create:andesite_alloy"
+    },
+    "S": {
+      "tag": "minecraft:wooden_slabs"
+    },
+    "i": {
+      "tag": "c:nuggets/iron"
+    }
+  },
+  "pattern": [
+    "iIi",
+    "I I",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "createbigmail:mail_shot"
+  }
+}
